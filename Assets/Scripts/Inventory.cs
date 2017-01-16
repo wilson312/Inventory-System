@@ -32,18 +32,21 @@ public class Inventory : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Debug.Log("A");
             AddItem(0);
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            Debug.Log("S");
             AddItem(1);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            AddItem(2);
         }
     }
     public void AddItem(int id)
     {
         Item itemToAdd = database.FetchItemByID(id);
+        Debug.Log(itemToAdd.Stackable + " Stackable");
         //for (int q = 0; q < slots.Count; q++)
         //{
         //    ItemData data = slots[q].transform.GetChild(0).GetComponent<ItemData>();
@@ -52,8 +55,6 @@ public class Inventory : MonoBehaviour {
 
         //    }
         //}
-        itemToAdd.Stackable = true;
-        Debug.Log(itemToAdd.Stackable);
         if (itemToAdd.Stackable && CheckIfItemExist(itemToAdd) && CheckIfMaxStacks(itemToAdd))
         {
             for (int i = 0; i < items.Count; i++)
@@ -62,14 +63,12 @@ public class Inventory : MonoBehaviour {
                 if (items[i].ID == id)
                 {
                     ItemData data = slots[i].transform.GetChild(0).GetComponent<ItemData>();
-                    data.amount++;
-                    data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
-                    if (data.amount >= items[i].MaxStackable)
+                    if (data.amount < items[i].MaxStackable)
                     {
-                        items[i].Stackable = false;
-                        Debug.Log(i);
+                        data.amount++;
+                        data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
+                        break;
                     }
-                    break;
                 }
 
             }
@@ -86,6 +85,7 @@ public class Inventory : MonoBehaviour {
                     itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
                     itemObj.name = itemToAdd.Title;
                     itemObj.transform.position = itemObj.transform.parent.position;
+                    itemToAdd.Stackable = true;
                     break;
                 }
             }
@@ -105,17 +105,16 @@ public class Inventory : MonoBehaviour {
     {
         for (int i = 0; i < items.Count; i++)
         {
-            if (items[i].ID == item.ID && items[i].Stackable)
+            if (items[i].ID == item.ID)
             {
                 ItemData data = slots[i].transform.GetChild(0).GetComponent<ItemData>();
                 if (data.amount < items[i].MaxStackable)
                 {
                     return true;
                 }
-             
             }
         }
-        Debug.Log("False");
+        item.Stackable = false;
         return false;
     }
 }
