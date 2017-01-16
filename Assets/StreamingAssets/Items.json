@@ -26,20 +26,6 @@
     "maxstackable": 5,
     "rarity": 10,
     "slug": "gae_bulg"
-  },
-  {
-    "id": 2,
-    "title": "Gisla",
-    "value": 500000,
-    "stats": {
-      "power": 2624,
-      "health": 289
-    },
-    "description": "Best Spear in Game",
-    "stackable": false,
-    "maxstackable": 1,
-    "rarity": 10,
-    "slug": "gisla"
   }
 ]
 

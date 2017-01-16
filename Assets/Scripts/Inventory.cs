@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using LitJson;
+
 public class Inventory : MonoBehaviour {
     GameObject inventoryPanel;
     GameObject slotPanel;
@@ -43,6 +45,7 @@ public class Inventory : MonoBehaviour {
             AddItem(2);
         }
     }
+
     public void AddItem(int id)
     {
         Item itemToAdd = database.FetchItemByID(id);
