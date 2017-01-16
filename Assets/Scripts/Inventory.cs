@@ -40,10 +40,6 @@ public class Inventory : MonoBehaviour {
         {
             AddItem(1);
         }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            AddItem(2);
-        }
     }
 
     public void AddItem(int id)
