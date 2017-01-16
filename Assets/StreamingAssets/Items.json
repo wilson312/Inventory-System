@@ -1,0 +1,29 @@
+[
+  {
+    "id": 0,
+    "title": "Chevalier Sword",
+    "value": 5000,
+    "stats": {
+      "power": 2660,
+      "health": 228
+    },
+    "description": "Best Sword in Game",
+    "stackable": false,
+    "rarity": 9,
+    "slug": "chev_sword"
+  },
+  {
+    "id": 1,
+    "title": "Gae Bulg",
+    "value": 500000,
+    "stats": {
+      "power": 2624,
+      "health": 289
+    },
+    "description": "Best Spear in Game",
+    "stackable": true,
+    "rarity": 10,
+    "slug": "gae_bulg"
+  }
+]
+
