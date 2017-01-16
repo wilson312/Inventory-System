@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour {
     public GameObject inventorySlot;
     public GameObject inventoryItem;
 
-    int slotAmount;
+    int slotAmount,currentSlot;
     public List<Item> items = new List<Item>();
     public List<GameObject> slots = new List<GameObject>();
 
@@ -44,17 +44,34 @@ public class Inventory : MonoBehaviour {
     public void AddItem(int id)
     {
         Item itemToAdd = database.FetchItemByID(id);
-        if(itemToAdd.Stackable && CheckIfItemExist(itemToAdd))
+        //for (int q = 0; q < slots.Count; q++)
+        //{
+        //    ItemData data = slots[q].transform.GetChild(0).GetComponent<ItemData>();
+        //    if (data.amount != itemToAdd.MaxStackable)
+        //    {
+
+        //    }
+        //}
+        itemToAdd.Stackable = true;
+        Debug.Log(itemToAdd.Stackable);
+        if (itemToAdd.Stackable && CheckIfItemExist(itemToAdd) && CheckIfMaxStacks(itemToAdd))
         {
             for (int i = 0; i < items.Count; i++)
             {
-                if(items[i].ID == id)
+        
+                if (items[i].ID == id)
                 {
                     ItemData data = slots[i].transform.GetChild(0).GetComponent<ItemData>();
                     data.amount++;
                     data.transform.GetChild(0).GetComponent<Text>().text = data.amount.ToString();
+                    if (data.amount >= items[i].MaxStackable)
+                    {
+                        items[i].Stackable = false;
+                        Debug.Log(i);
+                    }
                     break;
                 }
+
             }
         }
         else
@@ -69,7 +86,6 @@ public class Inventory : MonoBehaviour {
                     itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
                     itemObj.name = itemToAdd.Title;
                     itemObj.transform.position = itemObj.transform.parent.position;
-                    Debug.Log(itemObj.transform.position);
                     break;
                 }
             }
@@ -83,6 +99,23 @@ public class Inventory : MonoBehaviour {
             if (items[i].ID == item.ID)
                 return true;
         }
+        return false;
+    }
+    bool CheckIfMaxStacks(Item item)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].ID == item.ID && items[i].Stackable)
+            {
+                ItemData data = slots[i].transform.GetChild(0).GetComponent<ItemData>();
+                if (data.amount < items[i].MaxStackable)
+                {
+                    return true;
+                }
+             
+            }
+        }
+        Debug.Log("False");
         return false;
     }
 }

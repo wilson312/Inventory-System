@@ -21,7 +21,7 @@ public class ItemDatabase : MonoBehaviour {
         for(int i =0;i<itemData.Count;i++)
         {
             database.Add(new Item((int)itemData[i]["id"], itemData[i]["title"].ToString(), (int)itemData[i]["value"],
-                (int)itemData[i]["stats"]["power"],(int)itemData[i]["stats"]["health"], itemData[i]["description"].ToString(), (bool)itemData[i]["stackable"],
+                (int)itemData[i]["stats"]["power"],(int)itemData[i]["stats"]["health"], itemData[i]["description"].ToString(), (bool)itemData[i]["stackable"],(int)itemData[i]["maxstackable"],
                 (int)itemData[i]["rarity"], itemData[i]["slug"].ToString()));
         }
     }
@@ -43,10 +43,11 @@ public class Item
     public int Health { get; set; }
     public string Description { get; set; }
     public bool Stackable { get; set; }
+    public int MaxStackable { get; set; }
     public int Rarity { get; set; }
     public string Slug { get; set; }
     public Sprite Sprite { get; set; }
-    public Item(int id, string title, int value, int power, int health, string description, bool stackable, int rarity, string slug)
+    public Item(int id, string title, int value, int power, int health, string description, bool stackable,int maxstackable, int rarity, string slug)
     {
         this.ID = id;
         this.Title = title;
@@ -55,6 +56,7 @@ public class Item
         this.Health = health;
         this.Description = description;
         this.Stackable = stackable;
+        this.MaxStackable = maxstackable;
         this.Rarity = rarity;
         this.Slug = slug;
         this.Sprite = Resources.Load<Sprite>("Sprites/Items/Weapons/"+slug);

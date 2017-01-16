@@ -8,7 +8,8 @@
       "health": 228
     },
     "description": "Best Sword in Game",
-    "stackable": false,
+    "stackable": true,
+    "maxstackable" : 10,
     "rarity": 9,
     "slug": "chev_sword"
   },
@@ -22,6 +23,7 @@
     },
     "description": "Best Spear in Game",
     "stackable": true,
+    "maxstackable" : 99,
     "rarity": 10,
     "slug": "gae_bulg"
   }
